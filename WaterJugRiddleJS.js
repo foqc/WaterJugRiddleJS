@@ -1,29 +1,29 @@
-const MAX_BIG = 5
+const MAX_LARGE = 5
 const MAX_SMALL = 3
 
-const fillJug = (jugs, key = 'big', max = MAX_BIG) => ({ ...jugs, [key]: max })
+const fillJug = (jugs, key = 'large', max = MAX_LARGE) => ({ ...jugs, [key]: max })
 
-const emptyJug = (jugs, key = 'big') => ({ ...jugs, [key]: 0 })
+const emptyJug = (jugs, key = 'large') => ({ ...jugs, [key]: 0 })
 
-const bigToSmall = ({ big, small }) => {
+const largeToSmall = ({ large, small }) => {
     const quantityNeededToFillSmall = MAX_SMALL - small
 
     return {
-        big: big > quantityNeededToFillSmall ? big - quantityNeededToFillSmall : 0,
-        small: big > quantityNeededToFillSmall ? small + quantityNeededToFillSmall : small + big
+        large: large > quantityNeededToFillSmall ? large - quantityNeededToFillSmall : 0,
+        small: large > quantityNeededToFillSmall ? small + quantityNeededToFillSmall : small + large
     }
 }
 
-const smallToBig = ({ big, small }) => {
-    const quantityNeededToFillBig = MAX_BIG - big
+const smallToLarge = ({ large, small }) => {
+    const quantityNeededToFillLarge = MAX_LARGE - large
 
     return {
-        big: small > quantityNeededToFillBig ? small - quantityNeededToFillBig : 0,
-        small: small > quantityNeededToFillBig ? big + quantityNeededToFillBig : small + big
+        large: small > quantityNeededToFillLarge ? small - quantityNeededToFillLarge : 0,
+        small: small > quantityNeededToFillLarge ? large + quantityNeededToFillLarge : small + large
     }
 }
 
-const isRpeated = (path, { small, big }) => !!path.find(x => x.small === small && x.big === big)
+const isRpeated = (path, { small, large }) => !!path.find(x => x.small === small && x.large === large)
 
 function getShortestPath(start, target) {
 
@@ -37,11 +37,11 @@ function getShortestPath(start, target) {
         const lastPath = queue.shift()
         const lastState = lastPath[lastPath.length - 1]
 
-        if (target === lastState.big)
+        if (target === lastState.large)
             return lastPath
 
         const states = new Set([fillJug(lastState), fillJug(lastState, 'small', MAX_SMALL),
-        bigToSmall(lastState), smallToBig(lastState), emptyJug(lastState), emptyJug(lastState, 'small')])
+        largeToSmall(lastState), smallToLarge(lastState), emptyJug(lastState), emptyJug(lastState, 'small')])
 
         for (let item of states) {
             if (!isRpeated(lastPath, item)) {
@@ -55,6 +55,6 @@ function getShortestPath(start, target) {
     return null
 }
 
-path = getShortestPath({ small: 0, big: 0 }, 4)
+path = getShortestPath({ small: 0, large: 0 }, 4)
 
 console.log(path)
