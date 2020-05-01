@@ -7,4 +7,4 @@ It is resolved with Javascript.
 
 This app was built for the purpose of sharing my knowledge on it, this is explained in my personal Blog.
  
-You can check out this post [here](https://quijosakaf.com/public/blog/acertijo-jarras-de-agua-en-prolog).
+You can check out this post [here](https://dev.to/foqc/the-water-jug-riddle-in-js-em1).

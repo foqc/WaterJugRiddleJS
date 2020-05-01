@@ -9,8 +9,10 @@ const largeToSmall = ({ large, small }) => {
     const quantityNeededToFillSmall = MAX_SMALL - small
 
     return {
-        large: large > quantityNeededToFillSmall ? large - quantityNeededToFillSmall : 0,
-        small: large > quantityNeededToFillSmall ? small + quantityNeededToFillSmall : small + large
+        large: large > quantityNeededToFillSmall
+            ? large - quantityNeededToFillSmall : 0,
+        small: large > quantityNeededToFillSmall
+            ? small + quantityNeededToFillSmall : small + large
     }
 }
 
@@ -18,12 +20,15 @@ const smallToLarge = ({ large, small }) => {
     const quantityNeededToFillLarge = MAX_LARGE - large
 
     return {
-        large: small > quantityNeededToFillLarge ? small - quantityNeededToFillLarge : 0,
-        small: small > quantityNeededToFillLarge ? large + quantityNeededToFillLarge : small + large
+        large: small > quantityNeededToFillLarge
+            ? small - quantityNeededToFillLarge : 0,
+        small: small > quantityNeededToFillLarge
+            ? large + quantityNeededToFillLarge : small + large
     }
 }
 
-const isRpeated = (path, { small, large }) => !!path.find(x => x.small === small && x.large === large)
+const isRepeated = (path, { small, large }) =>
+    !!path.find(x => x.small === small && x.large === large)
 
 function getShortestPath(start, target) {
 
@@ -44,7 +49,7 @@ function getShortestPath(start, target) {
         largeToSmall(lastState), smallToLarge(lastState), emptyJug(lastState), emptyJug(lastState, 'small')])
 
         for (let item of states) {
-            if (!isRpeated(lastPath, item)) {
+            if (!isRepeated(lastPath, item)) {
                 const newPath = [...lastPath]
                 newPath.push(item)
                 queue.push(newPath)
@@ -55,6 +60,6 @@ function getShortestPath(start, target) {
     return null
 }
 
-path = getShortestPath({ small: 0, large: 0 }, 4)
+path = getShortestPath({ large: 0, small: 0 }, 4)
 
-console.log(path)
+console.log(JSON.stringify(path, null,'\t'))
