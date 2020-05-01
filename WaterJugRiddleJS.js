@@ -5,8 +5,7 @@ const fillJug = (jugs, key = 'big', max = MAX_BIG) => ({ ...jugs, [key]: max })
 
 const emptyJug = (jugs, key = 'big') => ({ ...jugs, [key]: 0 })
 
-const bigToSmall = jugs => {
-    const { big, small } = jugs
+const bigToSmall = ({ big, small }) => {
     const quantityNeededToFillSmall = MAX_SMALL - small
 
     return {
@@ -15,8 +14,7 @@ const bigToSmall = jugs => {
     }
 }
 
-const smallToBig = jugs => {
-    const { big, small } = jugs
+const smallToBig = ({ big, small }) => {
     const quantityNeededToFillBig = MAX_BIG - big
 
     return {
